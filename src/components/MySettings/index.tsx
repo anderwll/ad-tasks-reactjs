@@ -9,7 +9,9 @@ import MyModal from '../MyModal';
 
 import { User } from '../../store/modules/typeStore';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { editAccount } from '../../store/modules/userLogged/userLoggedSlice';
+import { editAccount, logout } from '../../store/modules/userLogged/userLoggedSlice';
+import { deletUser } from '../../store/modules/users/usersSlice';
+import MyAlert from '../MyAlert';
 
 interface MySettingsProps {
     isOpenModal: boolean,
@@ -22,8 +24,11 @@ const MySettings: React.FC<MySettingsProps> = ({ isOpenModal, isCloseModal }) =>
     const [openModalEditAccount, setOpenModalEditAccount] = useState(false);
     const [openModalDeletAccount, setOpenModalDeletAccount] = useState(false);
 
+    type TypeAlert = 'error' | 'warning' | 'info' | 'success'
+    const [alert, setAlert] = useState('');
+    const [typeAlert, setTypeAlert] = useState<TypeAlert>();
+
     const userLogged = useAppSelector((state) => state.userLogged)
-  
     const [darkMode, setDarkMode] = useState(userLogged.darkMode);
 
     useEffect(() => {
@@ -53,6 +58,29 @@ const MySettings: React.FC<MySettingsProps> = ({ isOpenModal, isCloseModal }) =>
         }
 
         dispatch(editAccount(darkUser));
+    };
+
+    const deletAccount = (user: User) => {
+        dispatch(deletUser(user));
+        alertFc('Successfully deleted account', 'success')
+        logoutFc();
+    }
+
+    const logoutFc = () => {
+        dispatch(logout());
+
+        setTimeout(() => {
+            navigate('/logout');
+        }, 1000)
+    }
+
+    const alertFc = (msg: string, type: TypeAlert) => {
+        setAlert(msg);
+        setTypeAlert(type);
+
+        setTimeout(() => {
+            setAlert('');
+        }, 3000);
     };
 
     return (
@@ -111,14 +139,11 @@ const MySettings: React.FC<MySettingsProps> = ({ isOpenModal, isCloseModal }) =>
             <MyModal isMode='deletAccount'
                 isOpenModal={openModalDeletAccount}
                 isCloseModal={showModalDeletAccount}
-                onClickAdd={() => {
-                    window.confirm('Deleted Account');
-
-                    setTimeout(() => {
-                        navigate('/logout')
-                    }, 1000)
-                }}
+                onClickAdd={() => deletAccount(userLogged)}
             />
+
+            {/* ALERT */}
+            {alert !== '' && ( <MyAlert type={typeAlert} text={alert}/> )}
         </>
     );
 };
