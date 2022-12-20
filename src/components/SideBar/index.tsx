@@ -7,13 +7,14 @@ import { TextField, Typography } from '@mui/material';
 interface SideBarProps {
     isMenuOpen: boolean, 
     onClickMenu: React.MouseEventHandler,
-    onClickSearch?: React.MouseEventHandler,
+    valueSearch?: string,
+    onChangeSearch?: (e: any) => void,
     onClickAdd: React.MouseEventHandler,
     onClickSettings: React.MouseEventHandler,
     onClickLogout: React.MouseEventHandler,
 }
 
-const SideBar: React.FC<SideBarProps> = ({ isMenuOpen, onClickMenu, onClickSearch, onClickAdd, onClickSettings, onClickLogout }) => {
+const SideBar: React.FC<SideBarProps> = ({ isMenuOpen, onClickMenu, valueSearch, onChangeSearch, onClickAdd, onClickSettings, onClickLogout }) => {
     return (
         <Side isMenuOpen={isMenuOpen}>
             <NavItem isLogo>
@@ -28,7 +29,7 @@ const SideBar: React.FC<SideBarProps> = ({ isMenuOpen, onClickMenu, onClickSearc
             <NavItem>
                 <DivIcons><Search/></DivIcons>
                 <DivTitle>
-                    <TextField id="search" label="Search (In production)" variant="outlined" />
+                    <TextField id="search" label="Search..." variant="outlined" value={valueSearch} onChange={onChangeSearch} />
                 </DivTitle>
             </NavItem>
             <NavItem onClick={onClickAdd}>

@@ -4,7 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { attUser } from '../../store/modules/users/usersSlice';
 import { addTask, deletTask, editTask, logout } from '../../store/modules/userLogged/userLoggedSlice';
 
-import { Typography, Grid } from '@mui/material'
+import { Typography, Grid, Button } from '@mui/material'
+import { KeyboardBackspace } from '@mui/icons-material';
 import ButtonAdd from '../../components/ButtonAdd';
 import SideBar from '../../components/SideBar';
 import NavBar from '../../components/NavBar';
@@ -30,6 +31,9 @@ const Tasks = () => {
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
     const [date, setDate] = useState('');
+
+    const [search, setSearch] = useState('');
+    const [listSearch, setListSearch] = useState<Task[]>([]);
     
     const [errorTitle, setErrorTitle] = useState(false);
     const [errorDesc, setErrorDesc] = useState(false);
@@ -68,8 +72,14 @@ const Tasks = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userLogged.tasks])
 
+    useEffect(() => {
+        console.log('entrou');
+        
+    }, [listSearch])
+
     const showMenu = () => {
         setMenuOpen(!menuOpen);
+        setSearch('');
     }
 
     const showModal = () => {
@@ -165,14 +175,19 @@ const Tasks = () => {
 
     const saveEdition = (tasks: Task) => {
         const indice = userLogged.tasks.findIndex((e) => e.id === tasks.id);
+        const indiceListSearch = listSearch.findIndex((e) => e.id === tasks.id);
 
         if(indice >= 0) {
             title === '' && setErrorTitle(true);
             desc === '' && setErrorDesc(true);
 
             if(title !== '' && desc !== '') {
-                dispatch(editTask(tasks))
+                const listTempSeacrh = [...listSearch];
+                listSearch[indiceListSearch] = tasks
 
+                setListSearch(listTempSeacrh);
+                dispatch(editTask(tasks))
+            
                 alertFc('Updated task.', 'success');
                 showModalAtt(id);
             } else {
@@ -185,6 +200,16 @@ const Tasks = () => {
         setTitle('');
         setDesc('');
     };
+
+    const searchFc = (value: string) => {
+        setSearch(value);
+
+        const existSearch = userLogged.tasks.filter((task) => task.title.toLowerCase() === value.toLowerCase() );
+
+       if(existSearch) {
+        setListSearch(existSearch)
+       }
+    }
 
     const attUserFc = () => {
         alertFc('Saving tasks.', 'success');
@@ -214,6 +239,8 @@ const Tasks = () => {
             {/* MENU LATERAL */}
             <SideBar isMenuOpen={menuOpen}  
                     onClickMenu={showMenu}
+                    valueSearch={search}
+                    onChangeSearch={(e) => searchFc(e.target.value)}
                     onClickAdd={showModal}
                     onClickSettings={showSettings}
                     onClickLogout={attUserFc}
@@ -227,28 +254,56 @@ const Tasks = () => {
             {/* SECTION CARDS */}
             <SectionCards onClick={() => setMenuOpen(false)} >
                 <Grid container spacing={4} padding={4} marginTop={0} width={menuOpen ? 'calc(100vw - 20rem)' : 'calc(100vw - 5rem)'} marginLeft={menuOpen ? '20rem' : '5rem'} bgcolor={darkMode ? '#18181b' : '#e2e2e2'} sx={{transition: 'all .4s'}}>
-                    <Grid item xs={12}>
-                        <Typography variant="h2" color={darkMode ? '#fff' : '#000'}>My tasks</Typography>
-                    </Grid>
-                    {listTasks.sort((a, b) => {
-                        if(a.id > b.id) {
-                            return -1
-                        } else {
-                            return 0
-                        }
-                    }).map((e, index) => {
-                        return (
-                            <Grid item xs={12} sm={9} md={6} lg={4} xl={3} key={index}>
-                                <MyCard title={e.title}
-                                        description={e.desc}
-                                        date={e.date}
-                                        onClickEdit={() => prepareEdition(e.id)}
-                                        onClickDelet={() => showModalDelet(e.id)}
-                                />
+                    {search !== ''  && (
+                        <>
+                            <Grid item xs={12}>
+                                <Typography variant="h2" color={darkMode ? '#fff' : '#000'}>Results... </Typography>
                             </Grid>
-                        )
-                    })
-                    }
+                            <Button variant="text" color="secondary" onClick={() => setSearch('')} sx={{position: 'absolute', marginTop: 7, marginLeft: 37}}>
+                                <KeyboardBackspace/> Voltar
+                            </Button>
+                            {listSearch.map((e, index) => {
+                                return (
+                                    <Grid item xs={12} sm={9} md={6} lg={4} xl={3} key={index}>
+                                        <MyCard title={e.title}
+                                                description={e.desc}
+                                                date={e.date}
+                                                onClickEdit={() => prepareEdition(e.id)}
+                                                onClickDelet={() => showModalDelet(e.id)}
+                                        />
+                                    </Grid>
+                                )
+                            })
+                            }
+                        </>
+                    )}
+
+                    {search === '' && (
+                       <>
+                       <Grid item xs={12}>
+                            <Typography variant="h2" color={darkMode ? '#fff' : '#000'}>My tasks</Typography>
+                        </Grid>
+                         {listTasks.sort((a, b) => {
+                            if(a.id > b.id) {
+                                return -1
+                            } else {
+                                return 0
+                            }
+                        }).map((e, index) => {
+                            return (
+                                <Grid item xs={12} sm={9} md={6} lg={4} xl={3} key={index}>
+                                    <MyCard title={e.title}
+                                            description={e.desc}
+                                            date={e.date}
+                                            onClickEdit={() => prepareEdition(e.id)}
+                                            onClickDelet={() => showModalDelet(e.id)}
+                                    />
+                                </Grid>
+                            )
+                        })
+                        }
+                       </>
+                    )}
                 </Grid>
             </SectionCards>
 
