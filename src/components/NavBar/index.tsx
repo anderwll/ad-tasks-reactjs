@@ -15,7 +15,7 @@ const NavBar: React.FC<NavBarProps> = ({ isMenuOpen, onClickMenu }) => {
     return (
         <SectionNav>
             <Nav isMenuOpen={isMenuOpen} onClick={onClickMenu}>
-                <Typography variant="h4">Welcome - {name}</Typography>
+                <Typography variant="h4">Welcome, {name}</Typography>
             </Nav>
         </SectionNav>
     );

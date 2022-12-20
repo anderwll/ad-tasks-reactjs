@@ -17,8 +17,8 @@ const MyCard: React.FC<MyCardProps> = ({ title, description, date, onClickEdit, 
     const darkMode = useAppSelector((state) => state.userLogged.darkMode)
 
     return (
-        <Card sx={{  minHeight: 275, display: 'flex', justifyContent: 'space-between', flexDirection: 'column', p: 1, background: `${darkMode ? '#434347' : '#fff'}` }}>
-            <CardContent>
+        <Card sx={{  minHeight: '100%', display: 'flex', justifyContent: 'space-between', flexDirection: 'column', p: 1, background: `${darkMode ? '#434347' : '#fff'}` }}>
+            <CardContent sx={{height: 250, overflowY: 'auto'}}>
                 <Typography sx={{ fontSize: 20 }} color={darkMode ? '#fff' : '#000'} gutterBottom >
                     {title}
                 </Typography>
@@ -26,7 +26,6 @@ const MyCard: React.FC<MyCardProps> = ({ title, description, date, onClickEdit, 
                 <Typography sx={{ mb: 1.5 }} color={darkMode ? '#fff' : '#000'}>
                     {description}
                 </Typography>
-                
             </CardContent>
             <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
                 <Box>
