@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import AppRoutes from './routes';
+import GlobalStyle from './config/global';
+import { PersistGate } from 'redux-persist/integration/react'
+import { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
+
+import { theme } from './config/theme';
+import { persistor, store } from './store/store';
+import { useAppSelector } from './store/hooks';
+
+const Spinner = 0 // COLOCAR O SPINER P/ FICAR CARREGANDO QUANDO SALVAR NO STORAGE ------
 
 function App() {
+  const darkMode = useAppSelector((state) => state.userLogged.darkMode || false);
+
+  //const darkMode = false
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Provider store={store}>
+        <PersistGate loading={Spinner} persistor={persistor}>
+          <ThemeProvider theme={(darkMode) ? theme.dark : theme.light}>
+            <AppRoutes />
+            <GlobalStyle />
+          </ThemeProvider>
+        </PersistGate>
+      </Provider> 
   );
 }
 
