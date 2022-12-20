@@ -38,6 +38,9 @@ const Tasks = () => {
 
     const userLogged = useAppSelector((state) => state.userLogged);
 
+    // --- LIST AUX PARA SER POSSIVEL REALIZAR O .sort() (organiza pelo maior id) ---
+    const [listTasks, setListTasks] = useState([...userLogged.tasks]);
+
     const darkMode = userLogged.darkMode;
 
     useEffect(() => {
@@ -50,12 +53,16 @@ const Tasks = () => {
    
         }     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     useEffect(() => {
         title !== '' && setErrorTitle(false);
         desc !== '' && setErrorDesc(false);
-    }, [title, desc])
+    }, [title, desc]);
+
+    useEffect(()=> {
+        setListTasks([...userLogged.tasks]);
+    }, [userLogged.tasks])
 
 
     const showMenu = () => {
@@ -201,12 +208,18 @@ const Tasks = () => {
             />
 
             {/* SECTION CARDS */}
-            <SectionCards>
-                <Grid container spacing={4} padding={4} marginTop={0} width={menuOpen ? 'calc(100vw - 20rem)' : 'calc(100vw - 5rem)'} marginLeft={menuOpen ? '20rem' : '5rem'} bgcolor={darkMode ? '#18181b' : '#e2e2e2'} sx={{transition: 'all .4s'}} onClick={() => setMenuOpen(false)}>
+            <SectionCards onClick={() => setMenuOpen(false)} >
+                <Grid container spacing={4} padding={4} marginTop={0} width={menuOpen ? 'calc(100vw - 20rem)' : 'calc(100vw - 5rem)'} marginLeft={menuOpen ? '20rem' : '5rem'} bgcolor={darkMode ? '#18181b' : '#e2e2e2'} sx={{transition: 'all .4s'}}>
                     <Grid item xs={12}>
                         <Typography variant="h2" color={darkMode ? '#fff' : '#000'}>My tasks</Typography>
                     </Grid>
-                    {userLogged.tasks.map((e, index) => {
+                    {listTasks.sort((a, b) => {
+                        if(a.id > b.id) {
+                            return -1
+                        } else {
+                            return 0
+                        }
+                    }).map((e, index) => {
                         return (
                             <Grid item xs={12} sm={9} md={6} lg={4} xl={3} key={index}>
                                 <MyCard title={e.title}

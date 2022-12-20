@@ -13,20 +13,20 @@ import { useAppSelector } from './store/hooks';
 const Spinner = 0 // COLOCAR O SPINER P/ FICAR CARREGANDO QUANDO SALVAR NO STORAGE ------
 
 function App() {
-  const darkMode = useAppSelector((state) => state.userLogged.darkMode || false);
+  //const useLoggedDarkMode = useAppSelector((state) => state.userLogged);
 
-  //const darkMode = false
+  const darkMode: boolean = false;
 
   return (
       <Provider store={store}>
         <PersistGate loading={Spinner} persistor={persistor}>
-          <ThemeProvider theme={(darkMode) ? theme.dark : theme.light}>
+          <ThemeProvider theme={darkMode ? theme.dark : theme.light}>
             <AppRoutes />
             <GlobalStyle />
           </ThemeProvider>
         </PersistGate>
       </Provider> 
   );
-}
+};
 
 export default App;
