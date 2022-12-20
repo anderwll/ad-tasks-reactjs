@@ -18,6 +18,7 @@ import { SectionCards } from './styled';
 const Tasks = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const newDate = new Date();
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -25,10 +26,11 @@ const Tasks = () => {
     const [modalDeletOpen, setModalDeletOpen] = useState(false);
     const [settings, setSettings] = useState(false);
 
+    const [id, setId] = useState(-1);
     const [title, setTitle] = useState('');
     const [desc, setDesc] = useState('');
-    const [id, setId] = useState(-1);
-
+    const [date, setDate] = useState('');
+    
     const [errorTitle, setErrorTitle] = useState(false);
     const [errorDesc, setErrorDesc] = useState(false);
 
@@ -62,8 +64,9 @@ const Tasks = () => {
 
     useEffect(()=> {
         setListTasks([...userLogged.tasks]);
+        dateFc();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userLogged.tasks])
-
 
     const showMenu = () => {
         setMenuOpen(!menuOpen);
@@ -76,10 +79,10 @@ const Tasks = () => {
         setErrorDesc(false);
     }
 
-    const showModalAtt = () => {
+    const showModalAtt = (id: number) => {
         setModalAttOpen(!modalAttOpen);
         clearInputs();
-        setId(-1);
+        setId(id);
     }
 
     const showModalDelet = (id: number) => {
@@ -91,9 +94,20 @@ const Tasks = () => {
         setSettings(!settings);
     }
 
+    const dateFc = () => {  
+        const day = String(newDate.getDate()).padStart(2, '0');
+        const month = String(newDate.getMonth() + 1).padStart(2, '0');
+        const year = newDate.getFullYear();
+        const hour = String(newDate.getHours()).padStart(2, '0');
+        const minutes = String(newDate.getMinutes()).padStart(2, '0');
+
+        const dateCurrent = `${day}/${month}/${year}-${hour}:${minutes}`;
+
+        setDate(dateCurrent);
+    }
+
     const addNewTasks = () => {
         let ultimoId: number = userLogged.tasks.length + 1;
-
         if(userLogged.tasks.length >= 2){
             let ultimoRegistro = userLogged.tasks.reduce((anterior, proximo) => {
                 if(anterior.id > proximo.id){
@@ -110,10 +124,11 @@ const Tasks = () => {
         desc === '' && setErrorDesc(true); 
 
         if(title !== '' && desc !== '') {
-            const newTasks = {
+            const newTasks: Task = {
                 id: ultimoId,
                 title: title,
                 desc: desc,
+                date: date,
             }
     
             dispatch(addTask(newTasks));
@@ -131,7 +146,7 @@ const Tasks = () => {
         const indice = userLogged.tasks.findIndex((tasks) => tasks.id === id);
         
         if(indice >= 0) {
-            dispatch(deletTask({id: id, title, desc}))
+            dispatch(deletTask({id: id, title, desc, date}))
             setModalDeletOpen(false);
             setId(-1);
             alertFc('Task deleted.', 'success'); 
@@ -139,11 +154,13 @@ const Tasks = () => {
         }  
     }
 
-    const prepareEdition = (index: number) => {
+    const prepareEdition = (id: number) => {
+        const indice = userLogged.tasks.findIndex((tasks) => tasks.id === id);
+        
         setModalAttOpen(true);
-        setId(userLogged.tasks[index].id)
-        setTitle(userLogged.tasks[index].title);
-        setDesc(userLogged.tasks[index].desc);
+        setId(userLogged.tasks[indice].id)
+        setTitle(userLogged.tasks[indice].title);
+        setDesc(userLogged.tasks[indice].desc);
     };
 
     const saveEdition = (tasks: Task) => {
@@ -157,7 +174,7 @@ const Tasks = () => {
                 dispatch(editTask(tasks))
 
                 alertFc('Updated task.', 'success');
-                showModalAtt();
+                showModalAtt(id);
             } else {
                 alertFc('Save only valid tasks', 'warning');
             }
@@ -224,7 +241,8 @@ const Tasks = () => {
                             <Grid item xs={12} sm={9} md={6} lg={4} xl={3} key={index}>
                                 <MyCard title={e.title}
                                         description={e.desc}
-                                        onClickEdit={() => prepareEdition(index)}
+                                        date={e.date}
+                                        onClickEdit={() => prepareEdition(e.id)}
                                         onClickDelet={() => showModalDelet(e.id)}
                                 />
                             </Grid>
@@ -253,8 +271,8 @@ const Tasks = () => {
             {/* MODAL ATT TASKS */}
             <MyModal isMode='att' 
                     isOpenModal={modalAttOpen} 
-                    isCloseModal={showModalAtt} 
-                    onClickAdd={() => saveEdition({id: id, title: title, desc: desc})}
+                    isCloseModal={() => showModalAtt(id)} 
+                    onClickAdd={() => saveEdition({id, title, desc, date})}
                     errorTitle={errorTitle}
                     errorDesc={errorDesc}
                     valueTitle={title}
