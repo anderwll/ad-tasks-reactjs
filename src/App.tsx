@@ -1,16 +1,15 @@
 import React from 'react';
 
-import AppRoutes from './routes';
-import GlobalStyle from './config/global';
 import { PersistGate } from 'redux-persist/integration/react'
 import { ThemeProvider } from 'styled-components';
 import { Provider } from 'react-redux';
 
+import AppRoutes from './routes';
+import GlobalStyle from './config/global';
+import Progress from './components/Progress';
 import { theme } from './config/theme';
 import { persistor, store } from './store/store';
 import { useAppSelector } from './store/hooks';
-
-const Spinner = 0 // COLOCAR O SPINER P/ FICAR CARREGANDO QUANDO SALVAR NO STORAGE ------
 
 function App() {
   //const useLoggedDarkMode = useAppSelector((state) => state.userLogged);
@@ -19,7 +18,7 @@ function App() {
 
   return (
       <Provider store={store}>
-        <PersistGate loading={Spinner} persistor={persistor}>
+        <PersistGate loading={<Progress/>} persistor={persistor}>
           <ThemeProvider theme={darkMode ? theme.dark : theme.light}>
             <AppRoutes />
             <GlobalStyle />
