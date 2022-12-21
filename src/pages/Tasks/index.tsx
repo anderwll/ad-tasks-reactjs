@@ -15,6 +15,7 @@ import MyAlert from '../../components/MyAlert';
 import MySettings from '../../components/MySettings';
 import { Task } from '../../store/modules/typeStore';
 import { SectionCards } from './styled';
+import Notification from '../../components/Notification';
 
 const Tasks = () => {
     const dispatch = useAppDispatch();
@@ -252,6 +253,9 @@ const Tasks = () => {
             <NavBar isMenuOpen={menuOpen}
                     onClickMenu={() => setMenuOpen(false)}
             />
+
+            {/* CONTADOR DE TAREFAS */}
+            <Notification/>
 
             {/* SECTION CARDS */}
             <SectionCards onClick={() => setMenuOpen(false)} >
