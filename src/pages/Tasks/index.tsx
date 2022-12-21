@@ -159,6 +159,7 @@ const Tasks = () => {
             dispatch(deletTask({id: id, title, desc, date}))
             setModalDeletOpen(false);
             setId(-1);
+            setSearch('');
             alertFc('Task deleted.', 'success'); 
 
         }  
@@ -189,6 +190,7 @@ const Tasks = () => {
                 dispatch(editTask(tasks))
             
                 alertFc('Updated task.', 'success');
+                setSearch('');
                 showModalAtt(id);
             } else {
                 alertFc('Save only valid tasks', 'warning');
@@ -204,7 +206,7 @@ const Tasks = () => {
     const searchFc = (value: string) => {
         setSearch(value);
 
-        const existSearch = userLogged.tasks.filter((task) => task.title.toLowerCase() === value.toLowerCase() );
+        const existSearch = userLogged.tasks.filter((task) => task.title.toLowerCase().includes(value.toLowerCase()) || task.desc.toLowerCase().includes(value.toLowerCase()));
 
        if(existSearch) {
         setListSearch(existSearch)
