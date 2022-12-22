@@ -21,16 +21,16 @@ const Carrousel = () => {
                 prevIcon={false}
             >
                 <Carousel.Item interval={800}>
-                    <img src="./assets/img4.jpg" alt="First slide" />
+                    <img src="./assets/img1.jpg" alt="First slide" />
                 </Carousel.Item> 
                 <Carousel.Item interval={800}>
-                    <img src="./assets/img3.jpg" alt="Second slide" />
+                    <img src="./assets/img2.jpg" alt="Second slide" />
                 </Carousel.Item>
                 <Carousel.Item interval={800}>
-                    <img src="./assets/img2.jpg" alt="Third slide" />
+                    <img src="./assets/img3.jpg" alt="Third slide" />
                 </Carousel.Item>
                 <Carousel.Item interval={800}>
-                    <img src="./assets/img1.jpg" alt="Third slide" />
+                    <img src="./assets/img4.jpg" alt="Third slide" />
                 </Carousel.Item>
             </Carousel>
         </DivCarrousel>
