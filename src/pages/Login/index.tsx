@@ -28,7 +28,7 @@ const Login = () => {
                 alignItems='center' 
                 height='100vh'
             >
-                <Grid item sm={12} md={10} lg={8} xl={7}>
+                <Grid item sm={12} md={10} lg={7} xl={7}>
                     <Paper 
                         sx={{display: 'flex', 
                             flexDirection: 'row' , 

@@ -23,8 +23,6 @@ export const DivForm = styled.div<DivFormProps>`
     gap: ${props => props.isAttAccountDivForm && '2rem'};
     padding: ${props => props.isAttAccountDivForm && '0 1rem'};
 
-    //background-color: ${props => props.theme.bgColor};
-
     img {
         width: 20rem;
     }

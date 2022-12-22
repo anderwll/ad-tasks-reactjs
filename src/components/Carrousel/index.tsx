@@ -8,7 +8,6 @@ const DivCarrousel = styled.div`
     img {
         width: 100%;
         height: 40rem;
-        filter: brightness(100%);
     }
 `;
 
