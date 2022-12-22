@@ -60,8 +60,8 @@ const MySettings: React.FC<MySettingsProps> = ({ isOpenModal, isCloseModal }) =>
         dispatch(editAccount(darkUser));
     };
 
-    const deletAccount = (user: User) => {
-        dispatch(deletUser(user));
+    const deletAccount = () => {
+        dispatch(deletUser(userLogged.email));
         alertFc('Successfully deleted account', 'success')
         logoutFc();
     }
@@ -139,7 +139,7 @@ const MySettings: React.FC<MySettingsProps> = ({ isOpenModal, isCloseModal }) =>
             <MyModal isMode='deletAccount'
                 isOpenModal={openModalDeletAccount}
                 isCloseModal={showModalDeletAccount}
-                onClickAdd={() => deletAccount(userLogged)}
+                onClickAdd={deletAccount}
             />
 
             {/* ALERT */}

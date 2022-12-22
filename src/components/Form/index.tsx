@@ -7,7 +7,7 @@ import { DivForm } from './styled';
 import  MyAlert from '../MyAlert';
 
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { addNewUser } from '../../store/modules/users/usersSlice';
+import { addNewUser, searchUsers } from '../../store/modules/users/usersSlice';
 import { login, editAccount } from '../../store/modules/userLogged/userLoggedSlice';
 
 interface FormProps {
@@ -37,7 +37,7 @@ const Form: React.FC<FormProps> = ({ isMode }) => {
     const [typeAlert, setTypeAlert] = useState<TypeAlert>();
 
     // --- PREENCHE LISTA USERS ---
-    const listUsers = useAppSelector((state) => state.users);
+    const listUsers = useAppSelector(searchUsers);
 
     // --- SETAR USUARIO LOGADO ---
     const userLogged = useAppSelector((state) => state.userLogged);

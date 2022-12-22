@@ -1,45 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { RootState } from '../../store';
 import { User } from '../typeStore';
 
-const initialState: User[] = [];
+const usersAdapter = createEntityAdapter<User>({
+  selectId: (state) => state.email,
+});
+
+export const { selectAll: searchUsers } = usersAdapter.getSelectors<RootState>((state) => state.users);
 
 const usersSlice = createSlice({
   name: 'users',
-  initialState,
+  initialState: usersAdapter.getInitialState(),
   reducers: {
-    addNewUser(state, action: PayloadAction<User>) {
-      return [...state, action.payload];
-    },
-    attUser(state, action: PayloadAction<User>) {
-      const indexUser = state.findIndex((user) => user.email === action.payload.email);
-
-      if(indexUser >= 0) {
-        const listAtt = [...state];
-
-        listAtt[indexUser] = action.payload;
-
-        return listAtt;
-
-      } else {
-        return state;
-
-      }
-    },
-    deletUser(state, action: PayloadAction<User>) {
-      const indexUser = state.findIndex((user) => user.email === action.payload.email);
-
-      if(indexUser >= 0) {
-        const listAtt = [...state];
-
-        listAtt.splice(indexUser, 1);
-
-        return listAtt;
-
-      } else {
-        return state;
-        
-      }
-    },
+    addNewUser: usersAdapter.addOne,
+    attUser: usersAdapter.updateOne,
+    deletUser: usersAdapter.removeOne,
   },
 });
 

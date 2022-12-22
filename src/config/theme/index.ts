@@ -1,7 +1,3 @@
-//bgColor: '#c1c3c5',
-
-//import { createTheme } from '@mui/material/styles';
-
 export const theme = {
     light: {
         primary: '#000',
@@ -16,4 +12,4 @@ export const theme = {
         bgColorBody: '#18181b'
     }
 };
-   
+

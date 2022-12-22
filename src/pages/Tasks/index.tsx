@@ -217,7 +217,7 @@ const Tasks = () => {
 
     const attUserFc = () => {
         alertFc('Saving tasks.', 'success');
-        dispatch(attUser(userLogged));
+        dispatch(attUser({id: userLogged.email, changes: userLogged}));
 
         setTimeout(() => {
             logoutFc();

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import userLoggedSlice from './userLogged/userLoggedSlice';
-import userSlice from './users/usersSlice';
+import userLoggedReducer from './userLogged/userLoggedSlice';
+import usersReducer from './users/usersSlice';
 
 const rootReducer = combineReducers({
-  users: userSlice,
-  userLogged: userLoggedSlice,
+  users: usersReducer,
+  userLogged: userLoggedReducer,
 });
 
 export { rootReducer };
