@@ -53,6 +53,10 @@ const userLoggedSlice = createSlice({
         }
     },
 
+    deletAllTask(state) {
+      state.tasks = [];
+   },
+
     editAccount(state, action: PayloadAction<User>) {
       return state = action.payload
       
@@ -64,5 +68,5 @@ const userLoggedSlice = createSlice({
   },
 });
 
-export const { login, addTask, editTask, deletTask, editAccount, logout } = userLoggedSlice.actions;
+export const { login, addTask, editTask, deletTask, deletAllTask, editAccount, logout } = userLoggedSlice.actions;
 export default userLoggedSlice.reducer;

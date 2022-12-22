@@ -8,7 +8,7 @@ import { CardSection } from './styled';
 import Form from '../Form';
 
 interface MyModalProps {
-    isMode: 'add' | 'att' | 'delet' | 'deletAccount' | 'attAccount',
+    isMode: 'add' | 'att' | 'delet' | 'deletAll' | 'deletAccount' | 'attAccount',
     isOpenModal: boolean,
     isCloseModal: React.MouseEventHandler,
     onClickAdd?: React.MouseEventHandler,
@@ -20,8 +20,8 @@ interface MyModalProps {
     valueEmail?: string,
     valuePassword?: string,
     valueRePassword?: string,
-    onChangeTitle?: (e: any) => void,
-    onChangeDesc?: (e: any) => void,
+    onChangeTitle?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
+    onChangeDesc?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>,
 }
 
 const MyModal: React.FC<MyModalProps> = ({ isMode, isOpenModal, errorTitle, errorDesc, isCloseModal, onClickAdd, valueTitle, valueDesc, onChangeTitle, onChangeDesc }) => {
@@ -63,6 +63,11 @@ const MyModal: React.FC<MyModalProps> = ({ isMode, isOpenModal, errorTitle, erro
                                     Are you sure you want to delete?
                                 </Typography>
                             )}
+                            {isMode === 'deletAll' && (
+                                <Typography variant='h4' color={darkMode ? '#fff' : '#000'} gutterBottom>
+                                    Are you sure you want to permanently delete all tasks?
+                                </Typography>
+                            )}
                             {isMode === 'deletAccount' && (
                                 <Typography variant='h4' color={darkMode ? '#fff' : '#000'} gutterBottom>
                                     Are you sure you want to permanently delete your account?
@@ -79,19 +84,12 @@ const MyModal: React.FC<MyModalProps> = ({ isMode, isOpenModal, errorTitle, erro
                         </CardContent>
                         <CardActions>
                             {isMode === 'add' && (
-                                <>
-                                    <Button variant='contained' color='info' sx={{p: 1.5}} onClick={onClickAdd}><Add/></Button>
-                                </>  
+                                <Button variant='contained' color='info' sx={{p: 1.5}} onClick={onClickAdd}><Add/></Button>
                             )}
                             {isMode === 'att' && (
-                                <>
-                                    <Button variant='contained' color='info' sx={{p: 1.5}} onClick={onClickAdd}><Check/></Button>
-                                </>  
+                                <Button variant='contained' color='info' sx={{p: 1.5}} onClick={onClickAdd}><Check/></Button>
                             )}
-                            {isMode === 'delet' && (
-                                <Button variant='contained' color='error' sx={{p: 1.5}} onClick={onClickAdd}><Check/></Button>
-                            )}
-                            {isMode === 'deletAccount' && (
+                            {(isMode === 'delet' || isMode === 'deletAll' || isMode === 'deletAccount') && (
                                 <Button variant='contained' color='error' sx={{p: 1.5}} onClick={onClickAdd}><Check/></Button>
                             )}
                             <Button variant='contained' color='secondary' sx={{p: 1.5}} onClick={isCloseModal}><Close/></Button>

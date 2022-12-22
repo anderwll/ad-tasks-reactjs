@@ -15,7 +15,7 @@ import MyAlert from '../../components/MyAlert';
 import MySettings from '../../components/MySettings';
 import { Task } from '../../store/modules/typeStore';
 import { SectionCards } from './styled';
-import Notification from '../../components/Notification';
+import ButtonDeletAll from '../../components/ButtonDeletAll';
 
 const Tasks = () => {
     const dispatch = useAppDispatch();
@@ -59,6 +59,7 @@ const Tasks = () => {
             }, 1500)
    
         }     
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -254,9 +255,6 @@ const Tasks = () => {
                     onClickMenu={() => setMenuOpen(false)}
             />
 
-            {/* CONTADOR DE TAREFAS */}
-            <Notification/>
-
             {/* SECTION CARDS */}
             <SectionCards onClick={() => setMenuOpen(false)} >
                 <Grid container spacing={4} padding={4} marginTop={0} width={menuOpen ? 'calc(100vw - 20rem)' : 'calc(100vw - 5rem)'} marginLeft={menuOpen ? '20rem' : '5rem'} bgcolor={darkMode ? '#18181b' : '#e2e2e2'} sx={{transition: 'all .4s'}}>
@@ -315,6 +313,9 @@ const Tasks = () => {
 
             {/* BUTTON ADD TASKS */}
             <ButtonAdd onClickAdd={showModal}/>
+
+            {/* CONTADOR DE TAREFAS */}
+            <ButtonDeletAll/>
 
             {/* MODAL ADD NEW TASKS */}
             <MyModal isMode='add' 

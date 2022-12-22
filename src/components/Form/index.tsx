@@ -224,8 +224,7 @@ const Form: React.FC<FormProps> = ({ isMode }) => {
         setErrorSaveAtt(true);
         setPassword('');
         setRePassword('');
-        alertFc('Updated account', 'success');
-        
+        alertFc('Updated account', 'success');   
     };
 
     // --- LIMPA INPUTS ---
