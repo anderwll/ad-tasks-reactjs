@@ -14,21 +14,15 @@ export const DivForm = styled.div<DivFormProps>`
     width: 100%;
     height: 100%;
 
-    gap: ${props => props.isSignupDivForm && '2rem'};
-    padding: ${props => props.isSignupDivForm && '2rem 4rem'};
+    padding: ${props => props.isSignupDivForm && '1rem 3rem'};
 
-    gap: ${props => props.isLoginDivForm && '4rem'};
-    padding: ${props => props.isLoginDivForm && '4rem'};
+    gap: ${props => props.isLoginDivForm && '2rem'};
+    padding: ${props => props.isLoginDivForm && '3rem'};
 
     gap: ${props => props.isAttAccountDivForm && '2rem'};
     padding: ${props => props.isAttAccountDivForm && '0 1rem'};
 
     img {
         width: 20rem;
-    }
-
-    // --- RESPONSIVIDADE ---
-    @media only screen and ( max-width: 1640px ) {
-        gap: ${props => props.isSignupDivForm ? '1rem' : '3rem'};
     }
 `;

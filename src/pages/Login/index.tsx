@@ -27,12 +27,13 @@ const Login = () => {
                 justifyContent='center' 
                 alignItems='center' 
                 height='100vh'
+                width='100vw'
             >
-                <Grid item sm={12} md={10} lg={7} xl={7}>
+                <Grid item sm={12} md={10} lg={8} xl={6}>
                     <Paper 
                         sx={{display: 'flex', 
                             flexDirection: 'row' , 
-                            height: '40rem', 
+                            height: '35rem', 
                             borderRadius: 5, 
                             overflow: 'hidden'
                         }} 

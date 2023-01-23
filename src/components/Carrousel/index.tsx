@@ -7,7 +7,7 @@ import { Carousel } from 'react-bootstrap';
 const DivCarrousel = styled.div`
     img {
         width: 100%;
-        height: 40rem;
+        height: 35rem;
     }
 `;
 
