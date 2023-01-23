@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Grid } from '@mui/material';
-import Typical from 'react-typical';
+import { Typography } from '@mui/material';
+import { Container } from './styled';
 
 const Logout = () => {
     const navigate = useNavigate();
@@ -10,28 +10,14 @@ const Logout = () => {
     useEffect(() => {
         setTimeout(() => {
             navigate('/')
-        }, 9500)
+        }, 5000)
   
     }, [navigate])
 
     return (
-        <Grid container display='flex' justifyContent='center' alignItems='center' textAlign='center' height='100vh'>
-            <Typical 
-                wrapper='h1'
-                loop={1}
-                steps={[
-                    '',
-                    1200,
-                    'Come back often... ',
-                    1000,
-                    'Thank you :) ', 
-                    1000, 
-                    '',
-                    1200
-                ]}
-            />
-        </Grid>
-
+        <Container>
+           <Typography variant="h2" color="initial">{"Thanks bye bye :)"}</Typography>
+        </Container>
     );
 }; 
 

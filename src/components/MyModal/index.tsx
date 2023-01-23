@@ -45,7 +45,7 @@ const MyModal: React.FC<MyModalProps> = ({ isMode, isOpenModal, errorTitle, erro
                                     </Typography>
 
                                     <TextField error={errorTitle} fullWidth variant="outlined" color='secondary' id="title" label="Title" value={valueTitle} onChange={onChangeTitle}/>
-                                    <TextField error={errorDesc} fullWidth variant="outlined" color='secondary' id="title" label="Description" value={valueDesc} onChange={onChangeDesc}/>
+                                    <TextField error={errorDesc} fullWidth variant="outlined" color='secondary' id="desc" label="Description" value={valueDesc} onChange={onChangeDesc} multiline rows={4} />
                                 </>
                             )}
                             {isMode === 'att' && (
@@ -55,7 +55,7 @@ const MyModal: React.FC<MyModalProps> = ({ isMode, isOpenModal, errorTitle, erro
                                     </Typography>
 
                                     <TextField error={errorTitle} fullWidth variant="outlined" color='secondary' id="title" label="Title" value={valueTitle} onChange={onChangeTitle}/>
-                                    <TextField error={errorDesc} fullWidth variant="outlined" color='secondary' id="title" label="Description" value={valueDesc} onChange={onChangeDesc}/>
+                                    <TextField error={errorDesc} fullWidth variant="outlined" color='secondary' id="desc" label="Description" value={valueDesc} onChange={onChangeDesc} multiline rows={4} />
                                 </>
                             )}
                             {isMode === 'delet' && (
