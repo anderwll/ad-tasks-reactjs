@@ -33,11 +33,11 @@ const Signup = () => {
                     <Paper 
                         sx={{display: 'flex', 
                             flexDirection: 'row' , 
-                            height: '35rem', 
+                            height: '100%', 
                             borderRadius: 5, 
                             overflow: 'hidden'
                         }} 
-                        elevation={10}
+                        elevation={3}
                     >
                         <BoxPaper isCarrousel>
                             <Carrousel />

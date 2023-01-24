@@ -24,5 +24,6 @@ export const DivForm = styled.div<DivFormProps>`
 
     img {
         width: 20rem;
+        
     }
 `;

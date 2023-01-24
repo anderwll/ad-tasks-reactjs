@@ -27,17 +27,17 @@ const Login = () => {
                 justifyContent='center' 
                 alignItems='center' 
                 height='100vh'
-                width='100vw'
+                width='100%'
             >
                 <Grid item sm={12} md={10} lg={8} xl={6}>
                     <Paper 
                         sx={{display: 'flex', 
                             flexDirection: 'row' , 
-                            height: '35rem', 
+                            height: '100%', 
                             borderRadius: 5, 
                             overflow: 'hidden'
                         }} 
-                        elevation={10}
+                        elevation={3}
                     >
                         <BoxPaper>
                             <Form isMode='login' />

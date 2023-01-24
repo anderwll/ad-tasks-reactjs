@@ -10,7 +10,8 @@ const BoxPaper = styled.div<BoxPaperProps>`
     text-align: center;
     align-items: center;
     width: 50%;
-    height: 100%;
+    height: 35rem;
+    overflow: hidden;
 
     @media only screen and ( max-width: 1000px ) {
         display: ${props => props.isCarrousel ? 'none' : 'flex'};
