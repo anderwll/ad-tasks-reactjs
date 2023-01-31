@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../../store/hooks';
 
-import Grid from '@mui/material/Grid'
-import { Paper } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { BoxPaper } from '../../components/BoxPaper';
 import Carrousel from '../../components/Carrousel';
 import Form from '../../components/Form';
+import { MyPaper } from '../../components/MyPaper';
 
 
 const Login = () => {
@@ -22,33 +22,22 @@ const Login = () => {
     }, [navigate, userLogged.name]);
 
     return (
-        <>
-            <Grid container 
-                justifyContent='center' 
-                alignItems='center' 
-                height='100vh'
-                width='100%'
-            >
-                <Grid item sm={12} md={10} lg={8} xl={6}>
-                    <Paper 
-                        sx={{display: 'flex', 
-                            flexDirection: 'row' , 
-                            height: '100%', 
-                            borderRadius: 5, 
-                            overflow: 'hidden'
-                        }} 
-                        elevation={3}
-                    >
-                        <BoxPaper>
-                            <Form isMode='login' />
-                        </BoxPaper>
-                        <BoxPaper isCarrousel>
-                            <Carrousel />
-                        </BoxPaper>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </>
+        <Box display='flex'
+            justifyContent='center' 
+            alignItems='center' 
+            height='100vh'
+            width='100%'
+        >
+            <MyPaper>
+                <BoxPaper>
+                    <Form isMode='login' />
+                </BoxPaper>
+                <BoxPaper isCarrousel>
+                    <Carrousel />
+                </BoxPaper>
+            </MyPaper> 
+        </Box>
+       
     );
 };
 

@@ -8,15 +8,11 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 8rem;
-    }
-
     body {
-        width: 100vw;
+        width: 100vw !important;
+        height: 100vh;
         overflow-x: hidden !important;
-        background-color: #e2e2e2;
+        background-color: #e2e2e2 !important;
     } 
 
     body::-webkit-scrollbar {

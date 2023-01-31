@@ -250,7 +250,7 @@ const Form: React.FC<FormProps> = ({ isMode }) => {
            { isMode === 'signup' && (
                 <DivForm isSignupDivForm >
                     <img src="./assets/logo1.png" alt="logo.png" />
-                    <Stack spacing={2} width='100%'>                       
+                    <Stack spacing={2}  width='100%'>                       
                         <Typography variant="h5" color="initial"> Register in the application </Typography>
                         <TextField fullWidth variant="outlined" label="Name" type='text' value={name} onChange={(e) => handleChange(e.target.value, 'name')} color={errorName ? 'error' : 'primary'} />
                         <TextField fullWidth variant="outlined" label="E-mail" type='email' value={email} onChange={(e) => handleChange(e.target.value, 'email')} color={errorEmail ? 'error' : 'primary'} />
@@ -265,7 +265,7 @@ const Form: React.FC<FormProps> = ({ isMode }) => {
            {isMode === 'login' && (
                 <DivForm isLoginDivForm >
                     <img src="./assets/logo1.png" alt="logo.png" />
-                    <Stack spacing={2} width='100%'>
+                    <Stack spacing={2}  width='100%'>
                         <Typography variant="h5" color="initial"> Access the application </Typography>
                         <TextField fullWidth variant="outlined" label="E-mail" type='email' value={email} onChange={(e) => handleChange(e.target.value, 'email')} color={errorName ? 'error' : 'secondary'} />
                         <TextField fullWidth variant="outlined" label="Password"  type='password' value={password} onChange={(e) => handleChange(e.target.value, 'password')} color={errorName ? 'error' : 'secondary'}/>
